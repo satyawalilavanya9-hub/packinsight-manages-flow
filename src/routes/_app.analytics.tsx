@@ -37,7 +37,7 @@ function AnalyticsPage() {
     value: CUSTOMERS.filter(c => c.industry === ind).length,
   }));
 
-  const COLORS = ["var(--color-chart-1)", "var(--color-chart-2)", "var(--color-chart-3)", "var(--color-chart-4)", "var(--color-chart-5)"];
+  const COLORS = ["#1e3a8a", "#2563eb", "#16a34a", "#f59e0b", "#dc2626"];
 
   return (
     <div className="space-y-6">
@@ -71,13 +71,13 @@ function AnalyticsPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={260}>
               <LineChart data={REVENUE_TREND} margin={{ left: 8, right: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="month" fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} tickFormatter={(v) => `₹${(v/100000).toFixed(0)}L`} />
-                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="month" fontSize={11} tick={{ fill: "#64748b" }} />
+                <YAxis fontSize={11} tick={{ fill: "#64748b" }} tickFormatter={(v) => `₹${(v/100000).toFixed(0)}L`} />
+                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Line type="monotone" dataKey="target" stroke="var(--color-chart-4)" strokeDasharray="5 5" name="Target" dot={false} />
-                <Line type="monotone" dataKey="revenue" stroke="var(--color-chart-1)" strokeWidth={2.5} name="Revenue" />
+                <Line type="monotone" dataKey="target" stroke="#f59e0b" strokeDasharray="5 5" name="Target" dot={false} />
+                <Line type="monotone" dataKey="revenue" stroke="#1e3a8a" strokeWidth={2.5} name="Revenue" />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
@@ -91,14 +91,14 @@ function AnalyticsPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={260}>
               <ComposedChart data={PRODUCTION_TREND} margin={{ left: 8, right: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="date" fontSize={10} tick={{ fill: "var(--color-muted-foreground)" }} interval={4} />
-                <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="date" fontSize={10} tick={{ fill: "#64748b" }} interval={4} />
+                <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Area type="monotone" dataKey="output" fill="var(--color-chart-2)" fillOpacity={0.25} stroke="var(--color-chart-2)" name="Output" />
-                <Line type="monotone" dataKey="target" stroke="var(--color-chart-4)" strokeDasharray="4 4" name="Target" dot={false} />
-                <Bar dataKey="defects" fill="var(--color-chart-5)" name="Defects" />
+                <Area type="monotone" dataKey="output" fill="#2563eb" fillOpacity={0.25} stroke="#2563eb" name="Output" />
+                <Line type="monotone" dataKey="target" stroke="#f59e0b" strokeDasharray="4 4" name="Target" dot={false} />
+                <Bar dataKey="defects" fill="#dc2626" name="Defects" />
               </ComposedChart>
             </ResponsiveContainer>
           </CardContent>
@@ -112,11 +112,11 @@ function AnalyticsPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={DEFECT_PARETO} margin={{ left: 8, right: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="type" fontSize={10} tick={{ fill: "var(--color-muted-foreground)" }} interval={0} angle={-15} textAnchor="end" height={60} />
-                <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
-                <Bar dataKey="count" fill="var(--color-chart-5)" radius={[4,4,0,0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="type" fontSize={10} tick={{ fill: "#64748b" }} interval={0} angle={-15} textAnchor="end" height={60} />
+                <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
+                <Bar dataKey="count" fill="#dc2626" radius={[4,4,0,0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -130,11 +130,11 @@ function AnalyticsPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={260}>
               <RadarChart data={machineUtil}>
-                <PolarGrid stroke="var(--color-border)" />
-                <PolarAngleAxis dataKey="machine" tick={{ fill: "var(--color-muted-foreground)", fontSize: 10 }} />
-                <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "var(--color-muted-foreground)", fontSize: 10 }} />
-                <Radar name="OEE %" dataKey="oee" stroke="var(--color-chart-2)" fill="var(--color-chart-2)" fillOpacity={0.35} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+                <PolarGrid stroke="#e2e8f0" />
+                <PolarAngleAxis dataKey="machine" tick={{ fill: "#64748b", fontSize: 10 }} />
+                <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: "#64748b", fontSize: 10 }} />
+                <Radar name="OEE %" dataKey="oee" stroke="#2563eb" fill="#2563eb" fillOpacity={0.35} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
               </RadarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -148,11 +148,11 @@ function AnalyticsPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={skuRevenue} layout="vertical" margin={{ left: 10, right: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" horizontal={false} />
-                <XAxis type="number" fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} tickFormatter={(v) => `₹${(v/100000).toFixed(1)}L`} />
-                <YAxis type="category" dataKey="sku" fontSize={10} width={80} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
-                <Bar dataKey="revenue" fill="var(--color-chart-3)" radius={[0,4,4,0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+                <XAxis type="number" fontSize={11} tick={{ fill: "#64748b" }} tickFormatter={(v) => `₹${(v/100000).toFixed(1)}L`} />
+                <YAxis type="category" dataKey="sku" fontSize={10} width={80} tick={{ fill: "#64748b" }} />
+                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
+                <Bar dataKey="revenue" fill="#16a34a" radius={[0,4,4,0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -169,7 +169,7 @@ function AnalyticsPage() {
                 <Pie data={customerContribution} dataKey="value" nameKey="name" innerRadius={50} outerRadius={95} paddingAngle={1}>
                   {customerContribution.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                 </Pie>
-                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
                 <Legend iconSize={8} wrapperStyle={{ fontSize: 11 }} />
               </PieChart>
             </ResponsiveContainer>
@@ -185,11 +185,11 @@ function AnalyticsPage() {
         <CardContent>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={industryMix} margin={{ left: 8, right: 8 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-              <XAxis dataKey="name" fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-              <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-              <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
-              <Bar dataKey="value" fill="var(--color-chart-1)" radius={[4,4,0,0]}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis dataKey="name" fontSize={11} tick={{ fill: "#64748b" }} />
+              <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
+              <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
+              <Bar dataKey="value" fill="#1e3a8a" radius={[4,4,0,0]}>
                 {industryMix.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Bar>
             </BarChart>

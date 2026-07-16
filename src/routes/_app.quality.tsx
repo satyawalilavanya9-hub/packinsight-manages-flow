@@ -14,11 +14,11 @@ export const Route = createFileRoute("/_app/quality")({
 });
 
 const STAGE_REJECT = [
-  { stage: "Corrugation", count: 225, color: "var(--color-chart-1)" },
-  { stage: "Printing", count: 685, color: "var(--color-chart-2)" },
-  { stage: "Die-Cutting", count: 152, color: "var(--color-chart-3)" },
-  { stage: "Gluing", count: 310, color: "var(--color-chart-4)" },
-  { stage: "Packing", count: 78, color: "var(--color-chart-5)" },
+  { stage: "Corrugation", count: 225, color: "#1e3a8a" },
+  { stage: "Printing", count: 685, color: "#2563eb" },
+  { stage: "Die-Cutting", count: 152, color: "#16a34a" },
+  { stage: "Gluing", count: 310, color: "#f59e0b" },
+  { stage: "Packing", count: 78, color: "#dc2626" },
 ];
 
 const CHECKLIST = [
@@ -52,11 +52,11 @@ function QualityPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={DEFECT_PARETO} margin={{ left: -10, right: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="type" fontSize={10} tick={{ fill: "var(--color-muted-foreground)" }} interval={0} angle={-15} textAnchor="end" height={60} />
-                <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
-                <Bar dataKey="count" fill="var(--color-chart-5)" radius={[4,4,0,0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="type" fontSize={10} tick={{ fill: "#64748b" }} interval={0} angle={-15} textAnchor="end" height={60} />
+                <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
+                <Bar dataKey="count" fill="#dc2626" radius={[4,4,0,0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
@@ -73,7 +73,7 @@ function QualityPage() {
                 <Pie data={STAGE_REJECT} dataKey="count" nameKey="stage" innerRadius={45} outerRadius={85}>
                   {STAGE_REJECT.map((e, i) => <Cell key={i} fill={e.color} />)}
                 </Pie>
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
                 <Legend iconSize={8} wrapperStyle={{ fontSize: 11 }} />
               </PieChart>
             </ResponsiveContainer>

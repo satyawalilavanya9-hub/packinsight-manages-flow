@@ -20,11 +20,11 @@ export const Route = createFileRoute("/_app/dashboard")({
 });
 
 const ORDER_STATUS = [
-  { name: "In Production", value: 5, color: "var(--color-chart-2)" },
-  { name: "Confirmed", value: 2, color: "var(--color-chart-1)" },
-  { name: "Dispatched", value: 1, color: "var(--color-chart-3)" },
-  { name: "Delivered", value: 1, color: "var(--color-chart-4)" },
-  { name: "Quotation", value: 1, color: "var(--color-chart-5)" },
+  { name: "In Production", value: 5, color: "#2563eb" },
+  { name: "Confirmed", value: 2, color: "#1e3a8a" },
+  { name: "Dispatched", value: 1, color: "#16a34a" },
+  { name: "Delivered", value: 1, color: "#f59e0b" },
+  { name: "Quotation", value: 1, color: "#dc2626" },
 ];
 
 function DashboardPage() {
@@ -59,16 +59,16 @@ function DashboardPage() {
               <AreaChart data={PRODUCTION_TREND} margin={{ left: -10, right: 8, top: 8, bottom: 0 }}>
                 <defs>
                   <linearGradient id="gOutput" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="var(--color-chart-2)" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="var(--color-chart-2)" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#2563eb" stopOpacity={0.35} />
+                    <stop offset="100%" stopColor="#2563eb" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="date" fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} interval={4} />
-                <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 6, fontSize: 12 }} />
-                <Area type="monotone" dataKey="target" stroke="var(--color-chart-4)" strokeDasharray="4 4" fill="transparent" name="Target" />
-                <Area type="monotone" dataKey="output" stroke="var(--color-chart-2)" fill="url(#gOutput)" strokeWidth={2} name="Output" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="date" fontSize={11} tick={{ fill: "#64748b" }} interval={4} />
+                <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 6, fontSize: 12 }} />
+                <Area type="monotone" dataKey="target" stroke="#f59e0b" strokeDasharray="4 4" fill="transparent" name="Target" />
+                <Area type="monotone" dataKey="output" stroke="#2563eb" fill="url(#gOutput)" strokeWidth={2} name="Output" />
               </AreaChart>
             </ResponsiveContainer>
           </CardContent>
@@ -85,7 +85,7 @@ function DashboardPage() {
                 <Pie data={ORDER_STATUS} dataKey="value" nameKey="name" innerRadius={55} outerRadius={90} paddingAngle={2}>
                   {ORDER_STATUS.map((e, i) => <Cell key={i} fill={e.color} />)}
                 </Pie>
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 6, fontSize: 12 }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 6, fontSize: 12 }} />
                 <Legend iconSize={8} wrapperStyle={{ fontSize: 11 }} />
               </PieChart>
             </ResponsiveContainer>
@@ -102,11 +102,11 @@ function DashboardPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={240}>
               <BarChart data={topCustomers} layout="vertical" margin={{ left: 10, right: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" horizontal={false} />
-                <XAxis type="number" fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`} />
-                <YAxis type="category" dataKey="name" fontSize={11} width={140} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", borderRadius: 6, fontSize: 12 }} />
-                <Bar dataKey="revenue" fill="var(--color-chart-1)" radius={[0, 4, 4, 0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
+                <XAxis type="number" fontSize={11} tick={{ fill: "#64748b" }} tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`} />
+                <YAxis type="category" dataKey="name" fontSize={11} width={140} tick={{ fill: "#64748b" }} />
+                <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: 6, fontSize: 12 }} />
+                <Bar dataKey="revenue" fill="#1e3a8a" radius={[0, 4, 4, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

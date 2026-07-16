@@ -75,12 +75,12 @@ function ProductionPage() {
           <CardContent>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={SHIFT_OUTPUT} margin={{ left: -10, right: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-                <XAxis dataKey="shift" fontSize={10} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-                <Tooltip contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
-                <Bar dataKey="target" fill="var(--color-muted)" radius={[4,4,0,0]} />
-                <Bar dataKey="output" fill="var(--color-chart-1)" radius={[4,4,0,0]} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="shift" fontSize={10} tick={{ fill: "#64748b" }} />
+                <YAxis fontSize={11} tick={{ fill: "#64748b" }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
+                <Bar dataKey="target" fill="#f1f5f9" radius={[4,4,0,0]} />
+                <Bar dataKey="output" fill="#1e3a8a" radius={[4,4,0,0]} />
               </BarChart>
             </ResponsiveContainer>
             <div className="mt-3 space-y-1 text-xs">

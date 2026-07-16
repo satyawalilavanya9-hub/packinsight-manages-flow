@@ -48,13 +48,13 @@ function SalesPage() {
         <CardContent>
           <ResponsiveContainer width="100%" height={260}>
             <LineChart data={REVENUE_TREND} margin={{ left: 8, right: 16 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-              <XAxis dataKey="month" fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} />
-              <YAxis fontSize={11} tick={{ fill: "var(--color-muted-foreground)" }} tickFormatter={(v) => `₹${(v/100000).toFixed(0)}L`} />
-              <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "var(--color-card)", border: "1px solid var(--color-border)", fontSize: 12 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis dataKey="month" fontSize={11} tick={{ fill: "#64748b" }} />
+              <YAxis fontSize={11} tick={{ fill: "#64748b" }} tickFormatter={(v) => `₹${(v/100000).toFixed(0)}L`} />
+              <Tooltip formatter={(v: number) => formatINR(v)} contentStyle={{ background: "#ffffff", border: "1px solid #e2e8f0", fontSize: 12 }} />
               <Legend wrapperStyle={{ fontSize: 12 }} />
-              <Line type="monotone" dataKey="target" stroke="var(--color-chart-4)" strokeDasharray="5 5" name="Target" dot={false} />
-              <Line type="monotone" dataKey="revenue" stroke="var(--color-chart-1)" strokeWidth={2.5} name="Revenue" />
+              <Line type="monotone" dataKey="target" stroke="#f59e0b" strokeDasharray="5 5" name="Target" dot={false} />
+              <Line type="monotone" dataKey="revenue" stroke="#1e3a8a" strokeWidth={2.5} name="Revenue" />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
