@@ -1,0 +1,106 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { FileText, FileSpreadsheet, FileType2, Download } from "lucide-react";
+import { toast } from "sonner";
+
+export const Route = createFileRoute("/_app/reports")({
+  head: () => ({ meta: [{ title: "Reports — PackInsight" }, { name: "robots", content: "noindex" }] }),
+  component: ReportsPage,
+});
+
+const REPORTS = [
+  { id: "R-01", name: "Daily Production Report", area: "Production", desc: "Shift-wise output, downtime, OEE by machine and operator.", updated: "Every day 06:15" },
+  { id: "R-02", name: "Quality & NCR Summary", area: "Quality", desc: "Pass rate, defect pareto, top rejection reasons, open NCRs.", updated: "Every day 07:00" },
+  { id: "R-03", name: "Inventory Valuation", area: "Inventory", desc: "Raw material & finished goods valuation with low-stock flags.", updated: "Weekly, Monday" },
+  { id: "R-04", name: "Sales Register (GST)", area: "Sales", desc: "Invoice-wise tax register with GSTIN, HSN and IGST/CGST/SGST split.", updated: "Monthly" },
+  { id: "R-05", name: "Customer Outstanding", area: "Sales", desc: "Aging analysis 0-30 / 30-60 / 60-90 / 90+ days.", updated: "Weekly, Monday" },
+  { id: "R-06", name: "Machine Utilization", area: "Production", desc: "Availability, performance, quality and OEE by asset.", updated: "Weekly" },
+  { id: "R-07", name: "Employee Attendance", area: "HR", desc: "Shift-wise attendance, overtime and absenteeism trends.", updated: "Weekly" },
+  { id: "R-08", name: "Supplier Purchase Register", area: "Inventory", desc: "GRN-wise supplier spend, on-time delivery and quality rating.", updated: "Monthly" },
+];
+
+function ReportsPage() {
+  const download = (fmt: string, name: string) => toast.success(`Downloading ${name}.${fmt.toLowerCase()}`);
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">Report Filters</CardTitle>
+          <CardDescription>Choose the period and scope for on-demand reports</CardDescription>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div>
+            <Label className="text-xs">From date</Label>
+            <Input type="date" className="mt-1.5" defaultValue="2026-07-01" />
+          </div>
+          <div>
+            <Label className="text-xs">To date</Label>
+            <Input type="date" className="mt-1.5" defaultValue="2026-07-16" />
+          </div>
+          <div>
+            <Label className="text-xs">Plant</Label>
+            <Select defaultValue="all">
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All plants</SelectItem>
+                <SelectItem value="gzb">Ghaziabad (Main)</SelectItem>
+                <SelectItem value="noida">Noida Unit</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="text-xs">Department</Label>
+            <Select defaultValue="all">
+              <SelectTrigger className="mt-1.5"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All departments</SelectItem>
+                <SelectItem value="prod">Production</SelectItem>
+                <SelectItem value="qa">Quality</SelectItem>
+                <SelectItem value="sales">Sales</SelectItem>
+                <SelectItem value="wh">Warehouse</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {REPORTS.map(r => (
+          <Card key={r.id} className="border-border/60">
+            <CardContent className="p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <FileText className="h-4 w-4 text-primary" />
+                    <Badge variant="outline" className="text-[10px]">{r.area}</Badge>
+                    <span className="font-mono text-[10px] text-muted-foreground">{r.id}</span>
+                  </div>
+                  <div className="text-sm font-semibold text-foreground">{r.name}</div>
+                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
+                  <div className="mt-2 text-[11px] text-muted-foreground">Auto-refresh · {r.updated}</div>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-4">
+                <Button size="sm" variant="outline" onClick={() => download("pdf", r.name)}>
+                  <FileType2 className="h-3.5 w-3.5 mr-1" /> PDF
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => download("xlsx", r.name)}>
+                  <FileSpreadsheet className="h-3.5 w-3.5 mr-1" /> Excel
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => download("csv", r.name)}>
+                  <Download className="h-3.5 w-3.5 mr-1" /> CSV
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}
