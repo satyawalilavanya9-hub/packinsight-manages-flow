@@ -141,10 +141,21 @@ function AiInsightsPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(input); } }}
-              placeholder="Ask about production, OEE, defects, orders, sustainability…"
+              placeholder={listening ? t("voice.listening") : "Ask about production, OEE, defects, orders, sustainability…"}
               className="min-h-[44px] max-h-32 resize-none"
               disabled={loading}
             />
+            <Button
+              type="button"
+              variant={listening ? "default" : "outline"}
+              onClick={toggleMic}
+              disabled={loading}
+              className={`shrink-0 self-end ${listening ? "animate-pulse" : ""}`}
+              title={t("voice.listen")}
+              aria-label={t("voice.listen")}
+            >
+              {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+            </Button>
             <Button onClick={() => submit(input)} disabled={loading || !input.trim()} className="shrink-0 self-end">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
