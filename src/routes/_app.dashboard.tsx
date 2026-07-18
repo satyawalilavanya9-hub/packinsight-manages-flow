@@ -13,6 +13,8 @@ import { StatusPill } from "@/components/status-pill";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
 import { PRODUCTION_TREND, ORDERS, INVENTORY, RECENT_ACTIVITY, CUSTOMERS, formatINR, formatNum } from "@/lib/mock-data";
+import { GreetingCard } from "@/components/greeting-card";
+import { PredictiveMaintenance } from "@/components/predictive-maintenance";
 
 export const Route = createFileRoute("/_app/dashboard")({
   head: () => ({ meta: [{ title: "Dashboard — PackInsight" }, { name: "robots", content: "noindex" }] }),
@@ -37,6 +39,8 @@ function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <GreetingCard />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <KpiCard label="Production Output" value={`${formatNum(65200)} pcs`} delta={4.8} deltaLabel="vs yesterday" icon={Factory} tone="info" />
         <KpiCard label="Quality Pass Rate" value="97.3%" delta={0.6} deltaLabel="vs last week" icon={ShieldCheck} tone="success" />
@@ -191,6 +195,8 @@ function DashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+      <PredictiveMaintenance />
     </div>
   );
 }

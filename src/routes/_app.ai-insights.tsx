@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Send, Loader2, Bot, User } from "lucide-react";
+import { Sparkles, Send, Loader2, Bot, User, Mic, MicOff } from "lucide-react";
 import { askPackInsight } from "@/lib/ai-insights.functions";
+import { useLang } from "@/lib/i18n";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/ai-insights")({
   head: () => ({ meta: [{ title: "AI Insights — PackInsight" }, { name: "robots", content: "noindex" }] }),
@@ -30,9 +32,43 @@ interface Turn {
 
 function AiInsightsPage() {
   const ask = useServerFn(askPackInsight);
+  const { lang, t } = useLang();
   const [input, setInput] = useState("");
   const [turns, setTurns] = useState<Turn[]>([]);
   const [loading, setLoading] = useState(false);
+  const [listening, setListening] = useState(false);
+  const recRef = useRef<any>(null);
+
+  useEffect(() => {
+    const SR = (typeof window !== "undefined") && ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition);
+    if (!SR) return;
+    const rec = new SR();
+    rec.continuous = false;
+    rec.interimResults = true;
+    rec.lang = lang === "hi" ? "hi-IN" : "en-IN";
+    rec.onresult = (e: any) => {
+      const text = Array.from(e.results).map((r: any) => r[0].transcript).join(" ");
+      setInput(text);
+    };
+    rec.onend = () => setListening(false);
+    rec.onerror = () => setListening(false);
+    recRef.current = rec;
+    return () => { try { rec.abort(); } catch {} };
+  }, [lang]);
+
+  const toggleMic = () => {
+    if (!recRef.current) {
+      toast.error("Voice input not supported in this browser");
+      return;
+    }
+    if (listening) {
+      recRef.current.stop();
+      setListening(false);
+    } else {
+      setInput("");
+      try { recRef.current.start(); setListening(true); } catch { setListening(false); }
+    }
+  };
 
   const submit = async (q: string) => {
     const question = q.trim();
@@ -105,10 +141,21 @@ function AiInsightsPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(input); } }}
-              placeholder="Ask about production, OEE, defects, orders, sustainability…"
+              placeholder={listening ? t("voice.listening") : "Ask about production, OEE, defects, orders, sustainability…"}
               className="min-h-[44px] max-h-32 resize-none"
               disabled={loading}
             />
+            <Button
+              type="button"
+              variant={listening ? "default" : "outline"}
+              onClick={toggleMic}
+              disabled={loading}
+              className={`shrink-0 self-end ${listening ? "animate-pulse" : ""}`}
+              title={t("voice.listen")}
+              aria-label={t("voice.listen")}
+            >
+              {listening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+            </Button>
             <Button onClick={() => submit(input)} disabled={loading || !input.trim()} className="shrink-0 self-end">
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             </Button>
