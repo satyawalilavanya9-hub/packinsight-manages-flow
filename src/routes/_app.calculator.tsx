@@ -7,8 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Calculator, Package, IndianRupee, TrendingUp, Truck, Copy } from "lucide-react";
+import { Calculator, Package, IndianRupee, TrendingUp, Truck, Copy, Box } from "lucide-react";
 import { formatINR } from "@/lib/mock-data";
+import { Box3D } from "@/components/box-3d";
+import { useLang } from "@/lib/i18n";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_app/calculator")({
@@ -21,6 +23,7 @@ const KRAFT_PRICE = { 120: 42, 140: 44, 150: 45, 180: 48, 200: 52 } as const;
 const INK_COST_PER_BOX = { 0: 0, 1: 0.35, 2: 0.7, 4: 1.5 } as const;
 
 function CalculatorPage() {
+  const { t } = useLang();
   const [length, setLength] = useState(400);
   const [width, setWidth] = useState(300);
   const [height, setHeight] = useState(250);
@@ -136,6 +139,16 @@ function CalculatorPage() {
 
         {/* Output */}
         <div className="space-y-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center gap-2"><Box className="h-4 w-4" /> {t("calc.preview")}</CardTitle>
+              <CardDescription>{length} × {width} × {height} mm · {ply}-ply · {colors === 0 ? "plain" : `${colors}-color print`}</CardDescription>
+            </CardHeader>
+            <CardContent className="bg-gradient-to-br from-muted/40 to-background rounded-b-lg">
+              <Box3D length={length} width={width} height={height} colors={colors} />
+            </CardContent>
+          </Card>
+
           <Card className="bg-primary text-primary-foreground border-0">
             <CardContent className="p-6">
               <div className="flex items-baseline justify-between gap-4 flex-wrap">
