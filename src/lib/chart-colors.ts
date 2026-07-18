@@ -1,16 +1,21 @@
-// Chart colors mirror the tokens in src/styles.css but are provided as
-// concrete strings because SVG presentation attributes (stroke / fill)
-// don't resolve CSS custom properties reliably across browsers.
+// Emerald Executive chart palette — mirrors design tokens in styles.css.
+// SVG presentation attrs need concrete strings, not CSS vars.
 export const CHART = {
-  navy: "#1e3a8a",
-  blue: "#2563eb",
-  green: "#16a34a",
-  amber: "#f59e0b",
+  emerald: "#064e3b",
+  jade: "#0d7a5f",
+  gold: "#c9a84c",
+  cream: "#f5f0e0",
+  teal: "#0f766e",
+  amber: "#d97706",
   red: "#dc2626",
   slate: "#64748b",
   slateLight: "#cbd5e1",
+  // aliases so existing pages keep compiling without edits
+  navy: "#064e3b",
+  blue: "#0f766e",
+  green: "#0d7a5f",
 };
 
-export const CHART_SERIES = [CHART.navy, CHART.blue, CHART.green, CHART.amber, CHART.red];
+export const CHART_SERIES = [CHART.emerald, CHART.jade, CHART.gold, CHART.teal, CHART.red];
 export const AXIS_COLOR = "#64748b";
-export const GRID_COLOR = "#e2e8f0";
+export const GRID_COLOR = "#e5e0d0";
