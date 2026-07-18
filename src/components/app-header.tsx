@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Bell, Moon, Sun, Search } from "lucide-react";
+import { Bell, Moon, Sun, Search, Languages } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { CURRENT_USER } from "@/lib/mock-data";
 import { useEffect, useState } from "react";
 import { getTheme, setTheme as persistTheme } from "@/lib/auth";
+import { useLang } from "@/lib/i18n";
 
 const PAGE_TITLES: Record<string, { title: string; crumb: string }> = {
   "/dashboard": { title: "Dashboard", crumb: "Overview" },
@@ -30,6 +31,7 @@ export function AppHeader() {
   const pathname = useRouterState({ select: (r) => r.location.pathname });
   const meta = PAGE_TITLES[pathname] ?? { title: "PackInsight", crumb: "Home" };
   const [theme, setThemeState] = useState<"light" | "dark">("light");
+  const { lang, setLang, t } = useLang();
 
   useEffect(() => { setThemeState(getTheme()); }, []);
 
@@ -55,8 +57,20 @@ export function AppHeader() {
 
       <div className="hidden lg:flex items-center relative w-72">
         <Search className="absolute left-3 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Search orders, SKUs, customers…" className="pl-9 h-9 bg-muted/40" />
+        <Input placeholder={t("search.placeholder")} className="pl-9 h-9 bg-muted/40" />
       </div>
+
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setLang(lang === "en" ? "hi" : "en")}
+        aria-label={t("lang.label")}
+        className="gap-1.5 px-2 font-mono text-[11px] uppercase"
+        title={t("lang.label")}
+      >
+        <Languages className="h-4 w-4" />
+        {lang === "en" ? "EN" : "हि"}
+      </Button>
 
       <Button variant="ghost" size="icon" onClick={toggleTheme} aria-label="Toggle theme">
         {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
