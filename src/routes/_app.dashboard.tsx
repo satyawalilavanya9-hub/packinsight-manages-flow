@@ -195,6 +195,8 @@ function DashboardPage() {
           </CardContent>
         </Card>
       </div>
+
+      <PredictiveMaintenance />
     </div>
   );
 }
