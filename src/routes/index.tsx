@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Box, Factory, ShieldCheck, TrendingUp } from "lucide-react";
+import { Factory, ShieldCheck, TrendingUp, Sparkles, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,7 @@ import { login, getSession } from "@/lib/auth";
 import type { Role } from "@/lib/mock-data";
 import { COMPANY, CURRENT_USER } from "@/lib/mock-data";
 import { toast } from "sonner";
+import logo from "@/assets/mannat-logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,6 +31,7 @@ function LoginPage() {
   const [role, setRole] = useState<Role>("Analyst");
   const [remember, setRemember] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [splash, setSplash] = useState(false);
 
   useEffect(() => {
     if (getSession()) navigate({ to: "/dashboard" });
@@ -39,11 +41,12 @@ function LoginPage() {
     e.preventDefault();
     if (!email || !password) { toast.error("Enter email and password"); return; }
     setLoading(true);
+    setSplash(true);
     setTimeout(() => {
       login(email, password, role, remember);
       toast.success(`Welcome back, ${CURRENT_USER.name.split(" ")[0]}`);
       navigate({ to: "/dashboard" });
-    }, 500);
+    }, 1400);
   };
 
   return (
